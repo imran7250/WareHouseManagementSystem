@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Purchase Order Registration</title>
+    <div th:insert="~{fragments/commonui :: userhead}"></div>
+    
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
+
+   <link rel="stylesheet" th:href="@{/css/purchaseorder_register.css}">
+
+</head>
+<body>
+<div th:insert="~{fragments/commonui :: usermenu}"></div>
+
+
+    
+  
+
+        <div class="container">
+            <div class="page-header">
+                <div class="page-icon">
+                    <i class="fas fa-file-invoice"></i>
+                </div>
+                <div class="page-title">
+                    <h1>PURCHASE ORDER REGISTRATION</h1>
+                    <p>Create and manage purchase orders efficiently</p>
+                </div>
+            </div>
+            
+            <div class="card">
+                <div class="card-header">
+                    <i class="fas fa-plus-circle"></i>
+                    <h2>New Purchase Order</h2>
+                </div>
+                
+                <div class="card-body">
+                    <!-- Success/Error Message -->
+                    <div th:if="${message}" class="alert" th:classappend="${#strings.contains(message, 'success') || #strings.contains(message, 'Success')} ? 'alert-success' : 'alert-error'">
+                        <i th:classappend="${#strings.contains(message, 'success') || #strings.contains(message, 'Success')} ? 'fas fa-check-circle' : 'fas fa-exclamation-circle'"></i> 
+                        <span th:text="${message}"></span>
+                    </div>
+                    
+                    <form th:action="@{/po/save}" method="POST" th:object="${purchaseOrder}" id="poForm">
+                        <div class="form-grid">
+                            <!-- Order Code -->
+                            <div class="form-group">
+                                <label for="orderCode">
+                                    <i class="fas fa-barcode label-icon"></i> ORDER CODE
+                                </label>
+                                <div class="input-container">
+                                    <i class="fas fa-tag input-icon"></i>
+                                    <input type="text" th:field="*{orderCode}" id="orderCode" placeholder="Enter unique order code">
+                                </div>
+                                <span id="orderCodeError" class="error-message"></span>
+                            </div>
+                            
+                            <!-- Shipment CODE -->
+                            <div class="form-group">
+                                <label for="shipmentType">
+                                    <i class="fas fa-shipping-fast label-icon"></i> SHIPMENT CODE
+                                </label>
+                                <div class="input-container">
+                                    <i class="fas fa-truck input-icon"></i>
+                                    <select th:field="*{shipmentType}" id="shipmentType">
+                                       <option value="">--SELECT--</option>
+                                       <option th:each="ob : ${shipmenttypes.entrySet()}"
+                                          th:value="${ob.key}"
+                                          th:text="${ob.value}">
+                                      </option>
+                                    </select>
+                                </div>
+                                <span id="shipmentTypeError" class="error-message"></span>
+                            </div>
+                            
+                            <!-- Vendor -->
+                            <div class="form-group">
+                                <label for="shipmentType">
+                                    <i class="fas fa-shipping-fast label-icon"></i>VENDOR
+                                </label>
+                                <div class="input-container">
+                                    <i class="fas fa-truck input-icon"></i>
+                                    <select th:field="*{vendor}" id="WhUserType">
+                                       <option value="">--SELECT--</option>
+                                       <option th:each="ob : ${vendors.entrySet()}"
+                                          th:value="${ob.key}"
+                                          th:text="${ob.value}">
+                                      </option>
+                                    </select>
+                                </div>
+                                <span id="WhUserTypeError" class="error-message"></span>
+                            </div>
+                            
+                            <!-- Reference Number -->
+                            <div class="form-group">
+                                <label for="refNumber">
+                                    <i class="fas fa-hashtag label-icon"></i> REFERENCE NUMBER
+                                </label>
+                                <div class="input-container">
+                                    <i class="fas fa-list-ol input-icon"></i>
+                                    <input type="text" th:field="*{refNumber}" id="refNumber" placeholder="Enter reference number">
+                                </div>
+                                <span id="refNumberError" class="error-message"></span>                   
+                            </div>
+                            
+                            <!-- Quality Check - FIXED FIELD NAME -->
+                            <div class="form-group">
+                                <label>
+                                    <i class="fas fa-clipboard-check label-icon"></i> QUALITY CHECK
+                                </label>
+                                <div class="radio-group">
+                                    <label class="radio-option">
+                                        <input type="radio" th:field="*{qltyCheack}" value="Required">
+                                        <i class="fas fa-check-circle"></i> Required
+                                    </label>
+                                    <label class="radio-option">
+                                        <input type="radio" th:field="*{qltyCheack}" value="Not Required">
+                                        <i class="fas fa-times-circle"></i> Not Required
+                                    </label>
+                                </div>
+                                <span id="qltyCheackError" class="error-message"></span>
+                            </div>
+                            <!-- Default Status - ADDED THIS FIELD -->
+                                     <!-- Default Status - ADDED THIS FIELD -->
+                           <div class="form-group">
+                               <label for="status">
+                               <i class="fas fa-info-circle label-icon"></i> DEFAULT STATUS
+                               </label>
+                               <div class="input-container">
+                               <i class="fas fa-lock input-icon"></i>
+                               <input type="text" th:field="*{status}" id="status" readonly class="status-input">
+                               </div>                  
+                            </div>                 
+                            <!-- Description -->
+                            <div class="form-group full-width">
+                                <label for="description">
+                                    <i class="fas fa-align-left label-icon"></i> DESCRIPTION
+                                </label>
+                                <div class="input-container">
+                                    <i class="fas fa-pen input-icon"></i>
+                                    <textarea id="description" th:field="*{description}" placeholder="Enter purchase order details and specifications"></textarea>
+                                </div>                   
+                            </div>
+
+                            <!-- Buttons -->
+                            <div class="btn-group">
+                                <!-- Submit Button -->
+                                <button type="submit" class="btn btn-primary">
+                                    <i class="fas fa-plus-circle"></i> CREATE PURCHASE ORDER
+                                </button>
+                                
+                                <!-- View All Orders Button -->
+                                <a th:href="@{/po/all}" class="btn btn-secondary">
+                                    <i class="fas fa-table"></i> VIEW ALL ORDERS
+                                </a>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>        
+       
+    
+    
+
+    
+
+            <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.min.js"></script>
+    
+    <!-- jQuery -->
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+     <script type="text/javascript" th:src="@{/js/purchaseorder-register.js}"></script>
+</body>
+</html>

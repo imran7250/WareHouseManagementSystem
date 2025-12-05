@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html xmlns:th="https://www.thymeleaf.org/">
+<head>
+<meta charset="UTF-8">
+<title>Sale Order Management System</title>
+<div th:insert="~{fragments/commonui :: userhead}"></div>
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+ <link rel="stylesheet" th:href="@{/css/saleorder-parts.css}">
+
+</head>
+<body> 
+     <div th:insert="~{fragments/commonui :: usermenu}"></div>
+
+    <header>
+        <div class="header-content">
+            <h3><i class="fas fa-shopping-cart"></i> SALE ORDER PARTS PAGE (SCREEN#2)</h3>        
+        </div>
+    </header>
+
+    <div class="container">
+        <div th:if="${message}" class="notification">
+            <i class="fas fa-check-circle"></i>
+            <span th:text="${message}"></span>
+        </div>
+        
+        <!-- SECTION #1--------START-------------------- -->
+        <div class="card">           
+            <div class="card-body">
+                <table class="data-table">
+                    <tr>
+                        <th>ORDER CODE</th>
+                        <td><input type="text" th:value="${so.orderCode}" readonly /></td>                   
+                  
+                        <th>ORDER STATUS</th>
+                     <td>
+    <span th:class="${'status-badge ' + 
+        (so.status == 'SALE-OPEN' ? 'status-open' : 
+        so.status == 'SALE-READY' ? 'status-picking' : 
+        so.status == 'SALE-CONFIRMED' ? 'status-ordered' : 
+        so.status == 'INVOICED' ? 'status-invoiced' : '')}"
+        th:text="${so.status.replace('SALE-', '')}">
+    </span>
+</td>                    
+                    </tr>
+                </table>
+                 <!-- SECTION #1--------END-------------------- -->
+                <hr/>
+                 <!-- SECTION #2--------START-------------------- -->
+                 <div th:if="${so.status=='SALE-OPEN' || so.status=='SALE-READY'}">
+                   <form th:action="@{/so/add}" method="POST" th:object="${saleDtl}">
+                      <div class="form-row">
+                        <div class="form-col">
+                            <label for="partType"><i class="fas fa-tag"></i> CHOOSE PART</label>
+                            <div class="input-icon">
+                                <i class="fas fa-list-alt"></i>
+                                <select id="partType" th:field="*{part.id}" required>
+                                    <option value="">- SELECT PART -</option> 
+                                    <option th:each="ob:${parts}" th:value="${ob.key}" th:text="${ob.value}"></option>  
+                                </select>
+                            </div>
+                         </div>
+                         
+                         <div class="form-col">
+                            <label for="quantity"><i class="fas fa-cube"></i> QUANTITY</label>
+                            <div class="input-icon">
+                                <i class="fas fa-hashtag"></i>
+                                <input type="text" id="quantity" name="qty" placeholder="Enter quantity" required>
+                            </div>
+                         </div>
+                   </div>
+                   
+                   <!-- Hidden input for linking Dtl with order -->
+                   <input type="hidden" name="order.id" th:value="${so.id}"/>
+                   <!-- Hidden input End -->
+                   
+                   <div class="text-center">
+                       <button type="submit" class="btn">
+                           <i class="fas fa-plus-circle"></i> Add Part
+                       </button>
+                   </div>
+                </form>
+                </div>
+                <hr/>
+                <!-- SECTION #3------------START--- -->
+                <div class="table-container">
+                    <div class="card-header">
+                        <h4 class="card-title"><i class="fas fa-list-ol"></i> ADDED PARTS LIST</h4>
+                    </div>
+                    <div class="card-body" style="padding: 0;">
+                        <div style="overflow-x: auto;">
+                            <table class="parts-table">
+                                <thead>
+                                    <tr>
+                                        <th>S.No</th>
+                                        <th>Item Code</th>
+                                        <th>Base Cost</th>
+                                        <th>Quantity</th>
+                                        <th th:if="${so.status=='PICKING'}">Operations</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr th:each="ob,status:${dtls}">
+                                        <td class="serial-number" th:text="${status.count}"></td>
+                                        <td th:text="${ob.part.partCode}"></td>
+                                        <td>₹<span th:text="${#numbers.formatDecimal(ob.part.partCost, 1, 2)}"></span></td>
+                                        <td><span class="quantity-badge" th:text="${ob.qty}"></span></td>
+                                        <td style="text-align: center;" th:if="${so.status=='PICKING'}">
+                                            <a th:href="@{/so/remove(dtlId=${ob.id}, orderId=${so.id})}" class="btn-danger">
+                                                <i class="fas fa-trash-alt"></i>
+                                                REMOVE
+                                            </a>
+                                        </td>
+                                    </tr>
+                                    <tr th:if="${#lists.isEmpty(dtls)}">
+                                        <td colspan="5" class="empty-state">
+                                            <i class="fas fa-info-circle"></i>
+                                            No parts added yet. Start by adding parts above.
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+                <!-- SECTION #4 -->
+                <div class="text-center" th:if="${so.status=='SALE-READY'}">
+                    <a th:href="@{/so/conformOrder(orderId=${so.id})}" class="btn btn-sm">
+                        <i class="fas fa-check-circle"></i> Place Order
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.min.js"></script>
+    
+    <!-- jQuery -->
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+</body>
+</html>

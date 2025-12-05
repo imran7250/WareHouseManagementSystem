@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html xmlns:th="https://www.thymeleaf.org/">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Shipment Type Registration</title>
+    <div th:insert="~{fragments/commonui :: userhead}"></div>    
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
+    
+      <link rel="stylesheet" th:href="@{/css/shipment_register.css}">
+      
+    
+    
+</head>
+<body>
+        <div th:insert="~{fragments/commonui :: usermenu}"></div>
+
+    <div class="page-wrapper">
+        
+        <div class="main-content">
+            <div class="container">
+                <div class="header">
+                    <h3><i class="fas fa-shipping-fast"></i> SHIPMENT TYPE REGISTRATION</h3>
+                    <p>Register a new shipment type in the system</p>
+                </div>
+                
+                <form th:action="@{/st/save}" method="POST" th:object="${shipmentType}" id="shipmentForm">
+                    <div class="form-body">
+                        <div class="form-group">
+                            <label for="shipmentMode"><i class="fas fa-truck-loading"></i> SHIPMENT MODE</label>
+                            <select class="form-control" th:field="*{shipmentMode}" id="shipmentMode" required>
+                                <option value="">- SELECT MODE -</option>
+                                <option value="AIR">AIR</option>
+                                <option value="TRUCK">TRUCK</option>
+                                <option value="SHIP">SHIP</option>
+                                <option value="TRAIN">TRAIN</option>
+                            </select>
+                            <div class="error-message" id="shipmentModeError">Please select a shipment mode</div>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="shipmentCode"><i class="fas fa-barcode"></i> SHIPMENT CODE</label>
+                            <input type="text" class="form-control" th:field="*{shipmentCode}" id="shipmentCode" placeholder="Enter shipment code" required>
+                            <span id="shipmentCodeAjaxError" class="ajax-error"></span>
+                            <div class="error-message" id="shipmentCodeError">Please enter a valid shipment code (alphanumeric, 3-10 characters)</div>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label><i class="fas fa-toggle-on"></i> ENABLE SHIPMENT</label>
+                            <div class="radio-group">
+                                <div class="radio-option">
+                                    <input type="radio" th:field="*{enableShipment}" value="YES" id="enableYes">
+                                    <label for="enableYes">YES</label>
+                                </div>
+                                <div class="radio-option">
+                                    <input type="radio" th:field="*{enableShipment}" value="NO" id="enableNo">
+                                    <label for="enableNo">NO</label>
+                                </div>
+                            </div>
+                            <div class="error-message" id="enableShipmentError">Please select an option</div>
+                        </div>
+                           
+                        <div class="form-group">
+                            <label><i class="fas fa-star"></i> SHIPMENT GRADE</label>
+                            <div class="radio-group">
+                                <div class="radio-option">
+                                    <input type="radio" th:field="*{shipmentGrade}" value="A" id="gradeA">
+                                    <label for="gradeA">A</label>
+                                </div>
+                                <div class="radio-option">
+                                    <input type="radio" th:field="*{shipmentGrade}" value="B" id="gradeB">
+                                    <label for="gradeB">B</label>
+                                </div>
+                                <div class="radio-option">
+                                    <input type="radio" th:field="*{shipmentGrade}" value="C" id="gradeC">
+                                    <label for="gradeC">C</label>
+                                </div>
+                            </div>
+                            <div class="error-message" id="shipmentGradeError">Please select a shipment grade</div>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="description"><i class="fas fa-file-alt"></i> DESCRIPTION</label>
+                            <textarea class="form-control" th:field="*{description}" id="description" placeholder="Enter shipment description"></textarea>
+                            <div class="error-message" id="descriptionError">Description cannot exceed 200 characters</div>
+                        </div>
+                        
+                        <button type="submit" class="btn"><i class="fas fa-paper-plane"></i> Register SHIPMENT</button>
+                        
+                        <div th:if="${message}" class="message" th:classappend="${#strings.contains(message, 'success') || #strings.contains(message, 'Success')} ? 'success' : 'error'" th:text="${message}"></div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <!-- Removed duplicate jQuery and placed all scripts at the bottom -->
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.min.js"></script>
+    
+    <!-- jQuery -->
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    
+ <script type="text/javascript" th:src="@{/js/shipments.js}"></script>
+
+    </script>  
+    
+</body>
+</html>

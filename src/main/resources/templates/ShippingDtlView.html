@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html xmlns:th="https://www.thymeleaf.org/">
+<head>
+<meta charset="UTF-8">
+<title>Shipping Management System</title>
+<div th:insert="~{fragments/commonui :: userhead}"></div>
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+
+ <link rel="stylesheet" th:href="@{/css/shipping-details.css}">
+
+</head>
+<body>
+
+      <div th:insert="~{fragments/commonui :: usermenu}"></div>   
+    <header>
+        <div class="header-content">
+            <h3><i class="fas fa-shipping-fast"></i> SHIPPING DETAILS PAGE</h3>
+            <div class="header-buttons">
+                <div class="record-count" th:text="'Total Records: ' + ${list.size()}"></div>
+          
+                <a th:href="@{/shipping/register}" class="btn btn-primary">
+                    <i class="fas fa-plus"></i> ADD NEW SHIPPING
+                </a>
+            </div>
+        </div>
+    </header>  
+
+    <div class="container">
+        <div th:if="${message}" class="notification success">
+            <i class="fas fa-check-circle"></i>
+            <span th:text="${message}"></span>
+        </div>
+
+        <div class="card">
+            <div class="card-header">
+                <h4 class="card-title"><i class="fas fa-table"></i> Shipping Data</h4>
+            </div>
+            <div class="card-body">
+            
+             <table>
+                <tr>
+                  <th>SHIPPING CODE</th>
+                  <td th:text="${shipping.code}" ></td>
+                </tr>    
+                <tr>
+                  <th>SHIPPING REF NUMBER</th>
+                  <td th:text="${shipping.shippingRefNum}" ></td>
+                </tr>             
+                <tr>
+                  <th>COURIER REF NUMBER</th>
+                  <td th:text="${shipping.courierRefNum}" ></td>
+                </tr>             
+                <tr>
+                  <th>CONTACT DETAILS</th>
+                  <td th:text="${shipping.contactDetails}" ></td>
+                </tr>             
+                <tr>
+                  <th>SALE ORDER CODE</th>
+                  <td th:text="${shipping.so.orderCode}" ></td>
+                </tr>             
+                <tr>
+                  <th>DESCRIPTION</th>
+                  <td th:text="${shipping.description}" ></td>
+                </tr>             
+             </table>
+            
+              <hr/>
+              
+                <table>
+                    <tr>
+                       
+                        <th>ITEM CODE</th>
+                        <th>BASE COST</th>                     
+                        <th>QUANTITY</th>
+                        <th>ITEM VALUE</th>
+                        <th>OPERATIONS</th>
+                    </tr> 
+                    <tr th:each="ob:${list}">
+                        <td th:text="${ob.itemCode}"></td>
+                        <td th:text="${ob.baseCost}"></td>
+                        <td th:text="${ob.qty}"></td>
+                        <td th:text="${ob.itemVal}"></td>                      
+                            <td class="action-cell">
+                              <div th:if="${ob.status == null}">
+                                <a th:href="@{/shipping/updateStatus(shippingId=${shipping.id},shippingDtlId=${ob.id},status='RECEIVED')}" 
+                                    class="btn btn-accept btn-sm">
+                                    <i class="fas fa-check"></i> RECEIVED
+                                 </a>
+                                 <a th:href="@{/shipping/updateStatus(shippingId=${shipping.id},shippingDtlId=${ob.id},status='RETURNED')}" 
+                                    class="btn btn-reject btn-sm">
+                                    <i class="fas fa-times"></i> RETURNED
+                                 </a>
+                                  
+                             </div>
+                             <div th:if="${ob.status != null}">
+                                 <span th:text="${ob.status}" class="status-badge" th:classappend="${ob.status == 'RECEIVED'} ? 'status-accepted' : (${ob.status == 'RETURNED'} ? 'status-rejected' : '')"></span>
+                             </div>                      
+                         </td>
+                    </tr>
+                    <tr th:if="${list.size() == 0}">
+                        <td colspan="5">
+                            <div class="empty-state">
+                                <i class="fas fa-inbox"></i>
+                                <h4>No Shipping Data Available</h4>
+                                <p>Click the "Add New Shipping" button to create your first Shipping.</p>
+                            </div>
+                        </td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+    </div>
+
+   
+    
+    
+            <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.min.js"></script>
+    
+    <!-- jQuery -->
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+     <script th:src="@{/js/shippingdtl-view.js}"></script>
+   
+</body>
+</html>

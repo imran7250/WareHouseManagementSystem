@@ -1,0 +1,243 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:fragment="userhead">
+<meta charset="UTF-8">
+<title>Navigation Bar</title>
+<!-- Add Bootstrap CSS -->
+<link
+	href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css"
+	rel="stylesheet">
+<!-- Add Bootstrap Icons -->
+<link rel="stylesheet"
+	href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.0/font/bootstrap-icons.css">
+<!-- Font Awesome -->
+<link rel="stylesheet"
+	href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+   
+   
+   <link rel="stylesheet" th:href="@{/css/commonui.css}">
+</head>
+
+<body>
+	<!-- Wrap nav and current user in one fragment for inclusion -->
+	<div th:fragment="usermenu">
+		<!-- Warehouse Management Header -->
+		<div class="warehouse-header">
+			<h1><i class="fas fa-warehouse me-2"></i>Warehouse Management System</h1>
+			<p class="subtitle">Complete Inventory and Logistics Solution</p>
+		</div>
+
+		<nav class="navbar navbar-expand-lg navbar-light bg-light">
+			<div class="container-fluid">
+             
+				<button class="navbar-toggler" type="button"
+					data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
+					aria-controls="navbarSupportedContent" aria-expanded="false"
+					aria-label="Toggle navigation">
+					<span class="navbar-toggler-icon"></span>
+				</button>
+
+				<div class="collapse navbar-collapse" id="navbarSupportedContent">
+					<ul class="navbar-nav me-auto mb-2 mb-lg-0">						
+
+						<!-- UOM DROPDOWN -->
+						<li class="nav-item dropdown"><a
+							class="nav-link dropdown-toggle" href="javascript:void(0)" id="uomDropdown"
+							role="button" data-bs-toggle="dropdown" aria-expanded="false">
+								<i class="fas fa-balance-scale uom-icon me-1"></i>UOM
+						</a>
+							<ul class="dropdown-menu" aria-labelledby="uomDropdown">
+								<li><a class="dropdown-item" th:href="@{/uom/register}"><i
+										class="fas fa-plus-circle me-2"></i>REGISTER</a></li>
+								<li><a class="dropdown-item" th:href="@{/uom/all}"><i
+										class="fas fa-list me-2"></i>VIEW ALL</a></li>
+
+							
+							 
+							</ul></li>
+						<!-- END UOM -->
+
+						<!-- ORDERMETHOD DROPDOWN -->
+						<li class="nav-item dropdown"><a
+							class="nav-link dropdown-toggle" href="javascript:void(0)"
+							id="orderMethodDropdown" role="button" data-bs-toggle="dropdown"
+							aria-expanded="false"> <i class="fas fa-file-invoice-dollar order-method-icon me-1"></i>ORDER
+								METHOD
+						</a>
+							<ul class="dropdown-menu" aria-labelledby="orderMethodDropdown">
+								<li><a class="dropdown-item"
+									th:href="@{/OrderMethod/register}"><i
+										class="fas fa-plus-circle me-2"></i>REGISTER</a></li>
+								<li><a class="dropdown-item" th:href="@{/OrderMethod/all}"><i
+										class="fas fa-list me-2"></i>VIEW ALL</a></li>
+							</ul></li>
+						<!-- END ORDER METHOD DROPDOWN -->
+
+						<!-- START SHIPMENTTYPE DROPDOWN -->
+						<li class="nav-item dropdown"><a
+							class="nav-link dropdown-toggle" href="javascript:void(0)"
+							id="shipmentTypeDropdown" role="button" data-bs-toggle="dropdown"
+							aria-expanded="false"> <i class="fas fa-shipping-fast shipment-type-icon me-1"></i>SHIPMENT
+								TYPE
+						</a>
+							<ul class="dropdown-menu" aria-labelledby="shipmentTypeDropdown">
+								<li><a class="dropdown-item" th:href="@{/st/register}"><i
+										class="fas fa-plus-circle me-2"></i>REGISTER</a></li>
+								<li><a class="dropdown-item" th:href="@{/st/all}"><i
+										class="fas fa-list me-2"></i>VIEW ALL</a></li>
+								<li><hr class="dropdown-divider"></li>
+							
+							</ul></li>
+						<!-- END SHIPMENT TYPE -->
+
+						<!-- START WHUSER DROPDOWN -->
+						<li class="nav-item dropdown"><a
+							class="nav-link dropdown-toggle" href="javascript:void(0)" id="whUserDropdown"
+							role="button" data-bs-toggle="dropdown" aria-expanded="false">
+								<i class="fas fa-users wh-user-icon me-1"></i>WH USER
+						</a>
+							<ul class="dropdown-menu" aria-labelledby="whUserDropdown">
+								<li><a class="dropdown-item" th:href="@{/whUser/register}"><i
+										class="fas fa-plus-circle me-2"></i>REGISTER</a></li>
+								<li><a class="dropdown-item" th:href="@{/whUser/all}"><i
+										class="fas fa-list me-2"></i>VIEW ALL</a></li>
+								
+							</ul></li>
+						<!-- END WHUSER TYPE -->
+
+						<!-- START PART DROPDOWN -->
+						<li class="nav-item dropdown"><a
+							class="nav-link dropdown-toggle" href="javascript:void(0)" id="partDropdown"
+							role="button" data-bs-toggle="dropdown" aria-expanded="false">
+								<i class="fas fa-cogs part-icon me-1"></i>PART
+						</a>
+							<ul class="dropdown-menu" aria-labelledby="partDropdown">
+								<li><a class="dropdown-item" th:href="@{/part/register}"><i
+										class="fas fa-plus-circle me-2"></i>REGISTER</a></li>
+								<li><a class="dropdown-item" th:href="@{/part/all}"><i
+										class="fas fa-list me-2"></i>VIEW ALL</a></li>
+							</ul></li>
+						<!-- END PART -->
+
+						<!-- START PURCHASE ORDER DROPDOWN -->
+						<li class="nav-item dropdown"><a
+							class="nav-link dropdown-toggle" href="javascript:void(0)"
+							id="purchaseOrderDropdown" role="button"
+							data-bs-toggle="dropdown" aria-expanded="false"> <i
+								class="fas fa-shopping-cart purchase-order-icon me-1"></i>PURCHASE ORDER
+						</a>
+							<ul class="dropdown-menu" aria-labelledby="purchaseOrderDropdown">
+								<li><a class="dropdown-item" th:href="@{/po/register}"><i
+										class="fas fa-plus-circle me-2"></i>REGISTER</a></li>
+								<li><a class="dropdown-item" th:href="@{/po/all}"><i
+										class="fas fa-list me-2"></i>VIEW ALL</a></li>
+							</ul></li>
+						<!-- END PURCHASE ORDER -->
+
+						<!-- START GRN DROPDOWN -->
+						<li class="nav-item dropdown"><a
+							class="nav-link dropdown-toggle" href="javascript:void(0)" id="grnDropdown"
+							role="button" data-bs-toggle="dropdown" aria-expanded="false">
+								<i class="fas fa-clipboard-check grn-icon me-1"></i>GRN
+						</a>
+							<ul class="dropdown-menu" aria-labelledby="grnDropdown">
+								<li><a class="dropdown-item" th:href="@{/grn/register}"><i
+										class="fas fa-plus-circle me-2"></i>REGISTER</a></li>
+								<li><a class="dropdown-item" th:href="@{/grn/all}"><i
+										class="fas fa-list me-2"></i>VIEW ALL</a></li>
+							</ul></li>
+						<!-- END GRN -->
+						
+					<!-- START SALE ORDER DROPDOWN -->
+						<li class="nav-item dropdown"><a
+							class="nav-link dropdown-toggle" href="javascript:void(0)" id="saleOrderDropdown"
+							role="button" data-bs-toggle="dropdown" aria-expanded="false">
+								<i class="fas fa-file-invoice sale-order-icon me-1"></i>SALE ORDER
+						</a>
+							<ul class="dropdown-menu" aria-labelledby="saleOrderDropdown">
+								<li><a class="dropdown-item" th:href="@{/so/register}"><i
+										class="fas fa-plus-circle me-2"></i>REGISTER</a></li>
+								<li><a class="dropdown-item" th:href="@{/so/all}"><i
+										class="fas fa-list me-2"></i>VIEW ALL</a></li>
+							</ul></li>
+						<!-- END SALE ORDER -->
+						
+				<!-- START SHIPPING DROPDOWN -->
+						<li class="nav-item dropdown"><a
+							class="nav-link dropdown-toggle" href="javascript:void(0)" id="shippingDropdown"
+							role="button" data-bs-toggle="dropdown" aria-expanded="false">
+								<i class="fas fa-truck shipping-icon me-1"></i>SHIPPING
+						</a>
+							<ul class="dropdown-menu" aria-labelledby="shippingDropdown">
+								<li><a class="dropdown-item" th:href="@{/shipping/register}"><i
+										class="fas fa-plus-circle me-2"></i>REGISTER</a></li>
+								<li><a class="dropdown-item" th:href="@{/shipping/all}"><i
+										class="fas fa-list me-2"></i>VIEW ALL</a></li>
+							</ul></li>
+						<!-- END SHIPPING -->
+						 
+						
+
+						<!-- START USER DROPDOWN -->
+						<li class="nav-item dropdown"
+							th:if="${session.userOb != null and session.userOb.roles.contains('ADMIN')}"><a
+							class="nav-link dropdown-toggle" href="javascript:void(0)" id="userDropdown"
+							role="button" data-bs-toggle="dropdown" aria-expanded="false">
+								<i class="fas fa-user-cog user-icon me-1"></i>USER
+						</a>
+							<ul class="dropdown-menu" aria-labelledby="userDropdown">
+								<li><a class="dropdown-item" th:href="@{/user/register}"><i
+										class="fas fa-plus-circle me-2"></i>REGISTER</a></li>
+								<li><a class="dropdown-item" th:href="@{/user/all}"><i
+										class="fas fa-list me-2"></i>VIEW ALL</a></li>
+							</ul></li>
+						<!-- END USER -->
+
+						<!-- MY PROFILE -->
+						<li class="nav-item"><a class="nav-link"
+							th:href="@{/user/profile}"> <i class="fas fa-user-circle profile-icon me-1"></i>MY
+								PROFILE
+						</a></li>
+
+						<!-- LOGOUT -->
+						<li class="nav-item"><a class="nav-link" th:href="@{/logout}">
+								<i class="fas fa-sign-out-alt logout-icon me-1"></i>Logout
+						</a></li>
+					</ul>
+
+
+				</div>
+			</div>
+		</nav>
+
+		<!-- Current user display (now inside the fragment) -->
+		<div class="current-user-container" th:if="${session.userOb != null}">
+			<div class="current-user-card">
+				<div class="user-avatar">
+					<i class="fas fa-user-circle"></i>
+				</div>
+				<div class="user-info">
+					<h4 class="user-welcome">
+						Current User: <span class="user-name" th:text="${session.userOb.name}"></span>
+					</h4>
+					<p class="user-role" th:text="${session.userOb.roles}"></p>
+				</div>
+				<div class="user-status">
+					<span class="status-indicator active"></span> <span
+						class="status-text">Online</span>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<!-- Bootstrap JS -->
+	<script
+		src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"></script>
+	<script
+		src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.min.js"></script>
+		
+		
+		
+
+</body>
+</html>

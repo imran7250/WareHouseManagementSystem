@@ -1,0 +1,379 @@
+<!DOCTYPE html>
+<html xmlns:th="https://www.thymeleaf.org/">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>User Registration</title>
+    <div th:insert="~{fragments/commonui :: userhead}"></div>
+    
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
+    
+    <style>
+        :root {
+            --primary: #4361ee;
+            --primary-light: #4895ef;
+            --secondary: #3a0ca3;
+            --accent: #7209b7;
+            --light: #f8f9fa;
+            --dark: #212529;
+            --success: #4cc9f0;
+            --card-bg: rgba(255, 255, 255, 0.95);
+            --input-bg: #f1f3f9;
+            /* Warehouse header variables */
+            --gradient-primary: linear-gradient(135deg, #1a6a82 0%, #2c8fb5 100%);
+            --shadow-medium: 0 8px 25px rgba(0, 0, 0, 0.15);
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Poppins', sans-serif;
+            background: linear-gradient(135deg, #f5f7fa 0%, #e4e8f0 100%);
+            min-height: 100vh;
+            padding: 20px;
+            color: var(--dark);
+        }
+        
+        .container {
+            width: 100%;
+            max-width: 480px;
+            margin: 20px auto;
+        }
+        
+        .header {
+            background: var(--gradient-primary);
+            color: white;
+            padding: 20px;
+            border-radius: 12px;
+            margin-bottom: 25px;
+            box-shadow: var(--shadow-medium);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .header h3 {
+            font-size: 24px;
+            font-weight: 700;
+            margin: 0;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .header h3 i {
+            background: rgba(255, 255, 255, 0.2);
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 18px;
+        }
+        
+        .record-count {
+            background: rgba(255, 255, 255, 0.2);
+            padding: 8px 16px;
+            border-radius: 20px;
+            font-weight: 500;
+        }
+        
+        .logo {
+            width: 70px;
+            height: 70px;
+            background: linear-gradient(145deg, var(--primary), var(--secondary));
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 15px;
+            box-shadow: 0 8px 20px rgba(67, 97, 238, 0.3);
+            color: white;
+            font-size: 28px;
+        }
+        
+        .form-container {
+            background: var(--card-bg);
+            border-radius: 16px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+            padding: 2.5rem;
+            backdrop-filter: blur(10px);
+            animation: slideUp 0.5s ease-out;
+            border: 1px solid rgba(255, 255, 255, 0.6);
+        }
+        
+        .form-group {
+            margin-bottom: 1.8rem;
+            position: relative;
+        }
+        
+        .form-group label {
+            font-weight: 500;
+            margin-bottom: 0.6rem;
+            display: block;
+            color: var(--dark);
+            font-size: 0.95rem;
+            padding-left: 5px;
+        }
+        
+        .input-icon {
+            position: relative;
+        }
+        
+        .input-icon i {
+            position: absolute;
+            left: 16px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: var(--primary);
+            z-index: 2;
+            font-size: 18px;
+        }
+        
+        .input-icon input {
+            padding-left: 50px;
+            width: 100%;
+            border: 2px solid transparent;
+            border-radius: 12px;
+            height: 52px;
+            transition: all 0.3s ease;
+            background-color: var(--input-bg);
+            font-size: 1rem;
+            box-shadow: inset 3px 3px 7px rgba(0, 0, 0, 0.05);
+        }
+        
+        .input-icon input:focus {
+            border-color: var(--primary);
+            outline: none;
+            box-shadow: 0 0 0 3px rgba(67, 97, 238, 0.15), inset 3px 3px 7px rgba(0, 0, 0, 0.05);
+            background-color: #fff;
+        }
+        
+        .btn {
+            background: linear-gradient(to right, var(--primary), var(--accent));
+            color: white;
+            border: none;
+            padding: 1rem 2rem;
+            border-radius: 12px;
+            font-weight: 600;
+            width: 100%;
+            margin-top: 1rem;
+            transition: all 0.3s ease;
+            font-size: 1.05rem;
+            letter-spacing: 0.5px;
+            box-shadow: 0 5px 15px rgba(67, 97, 238, 0.35);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 20px rgba(67, 97, 238, 0.45);
+        }
+        
+        .btn:active {
+            transform: translateY(0);
+        }
+        
+        .btn i {
+            margin-right: 8px;
+        }
+        
+        .ajax-error {
+            color: #ff6b6b;
+            font-size: 0.85rem;
+            margin-top: 0.5rem;
+            display: block;
+            padding-left: 5px;
+        }
+        
+        .roles-container {
+            display: flex;
+            gap: 1.5rem;
+            margin-top: 0.8rem;
+        }
+        
+        .roles-container label {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.6rem;
+            font-weight: normal;
+            cursor: pointer;
+            padding: 0.7rem 1.2rem;
+            border-radius: 10px;
+            transition: all 0.3s ease;
+            background-color: var(--input-bg);
+            margin-bottom: 0;
+            box-shadow: inset 3px 3px 7px rgba(0, 0, 0, 0.05);
+        }
+        
+        .roles-container label:hover {
+            background-color: #e8ebf7;
+            transform: translateY(-2px);
+        }
+        
+        input[type="checkbox"] {
+            width: 20px;
+            height: 20px;
+            cursor: pointer;
+            accent-color: var(--primary);
+        }
+        
+        h3 {
+            font-weight: 700;
+            font-size: 1.8rem;
+            background: linear-gradient(to right, var(--primary), var(--accent));
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            margin-bottom: 0.5rem;
+        }
+        
+        .subtitle {
+            color: #6c757d;
+            font-size: 1rem;
+            margin-bottom: 1.5rem;
+        }
+        
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: scale(0.95);
+            }
+            to {
+                opacity: 1;
+                transform: scale(1);
+            }
+        }
+        
+        @keyframes slideUp {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        /* Responsive adjustments */
+        @media (max-width: 576px) {
+            .container {
+                padding: 0.5rem;
+            }
+            
+            .form-container {
+                padding: 2rem 1.5rem;
+            }
+            
+            .roles-container {
+                flex-direction: column;
+                gap: 0.8rem;
+            }
+            
+            h3 {
+                font-size: 1.6rem;
+            }
+            
+            .header {
+                flex-direction: column;
+                text-align: center;
+                gap: 15px;
+                padding: 15px;
+            }
+            
+            .header h3 {
+                font-size: 20px;
+            }
+        }
+        
+        /* Add this to your UserRegistration page styles */
+.warehouse-header .subtitle {
+    color: rgba(255, 255, 255, 0.9) !important;
+    opacity: 0.9 !important;
+    font-weight: 300 !important;
+}
+        
+    </style>
+</head>
+<body>
+    <div th:insert="~{fragments/commonui :: usermenu}"></div>
+    
+    <div class="container">
+        <!-- Header matching User Data page -->
+        <div class="header">
+            <h3><i class="fas fa-user-plus"></i> USER REGISTRATION</h3>
+            <div class="record-count">New User</div>              
+        </div>
+
+        <!-- Success Message Display -->
+        <div th:if="${message}" class="alert alert-success text-center" role="alert">
+            <span th:text="${message}"></span>
+        </div>
+        
+        <div class="form-container">
+            <form method="post" th:action="@{/user/save}">
+                <div class="form-group">
+                    <label for="user"><i class="fas fa-user"></i> USERNAME</label>
+                    <div class="input-icon">
+                        <i class="fas fa-user"></i>
+                        <input type="text" id="user" name="name" placeholder="Enter your username" required>
+                    </div>
+                </div>
+                
+                <div class="form-group">
+                    <label for="userEmail"><i class="fas fa-envelope"></i> EMAIL</label>
+                    <div class="input-icon">
+                        <i class="fas fa-envelope"></i>
+                        <input type="email" id="userEmail" name="email" placeholder="Enter your email" required>
+                    </div>
+                    <span id="uomEmailError" class="ajax-error"></span>
+                </div>
+                
+                <div class="form-group">
+                    <label for="userPassword"><i class="fas fa-lock"></i> PASSWORD</label>
+                    <div class="input-icon">
+                        <i class="fas fa-lock"></i>
+                        <input type="password" id="userPassword" name="pwd" placeholder="Create a password" required>
+                    </div>
+                    <span id="uomPasswordError" class="ajax-error"></span>
+                </div>
+                
+                <div class="form-group">
+                    <label><i class="fas fa-users-cog"></i> User Roles</label>
+                    <div class="roles-container">
+                        <label>
+                            <input type="checkbox" name="roles" value="ADMIN"> ADMIN
+                        </label>
+                        <label>
+                            <input type="checkbox" name="roles" value="APPUSER"> APPUSER
+                        </label>
+                    </div>
+                </div>
+                
+                <button type="submit" class="btn">
+                    <i class="fas fa-user-plus"></i> CREATE USER
+                </button>
+            </form>
+        </div>
+    </div>
+    
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.min.js"></script>
+    
+    <!-- jQuery -->
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+</body>
+</html>

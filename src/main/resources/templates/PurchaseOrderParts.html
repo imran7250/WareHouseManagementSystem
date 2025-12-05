@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html xmlns:th="https://www.thymeleaf.org/">
+<head>
+<meta charset="UTF-8">
+<title>UOM Management System</title>
+<div th:insert="~{fragments/commonui :: userhead}"></div>
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+ <link rel="stylesheet" th:href="@{/css/purchaseorder-parts.css}">
+
+</head>
+<body> 
+     <div th:insert="~{fragments/commonui :: usermenu}"></div>
+
+    <header>
+        <div class="header-content">
+            <h3><i class="fas fa-weight"></i> PURCHASE PARTS PAGE (SCREEN#2)</h3>        
+        </div>
+    </header>
+
+    <div class="container">
+        <div th:if="${message}" class="notification">
+            <i class="fas fa-check-circle"></i>
+            <span th:text="${message}"></span>
+        </div>
+  <!-- SECTION #1--------START-------------------- -->
+        <div class="card">           
+            <div class="card-body">
+                <table class="data-table">
+                    <tr>
+                        <th>ORDER CODE</th>
+                        <td><input type="text" th:value="${po.orderCode}"  /></td>                   
+                  
+                        <th>ORDER STATUS</th>
+                        <td><input type="text" th:value="${po.status}" /></td>                     
+                    </tr>
+                </table>
+                 <!-- SECTION #1--------END-------------------- -->
+                <hr/>
+                 <!-- SECTION #2--------START-------------------- -->
+                 <div th:if="${po.status=='OPEN' || po.status=='PICKING'}">
+                   <form th:action="@{/po/add}" method="POST" th:object="${purchaseDtl}">
+                      <div class="form-row">
+                        <div class="form-col">
+                            <label for="uomType"><i class="fas fa-tag"></i> CHOOSE PART</label>
+                            <div class="input-icon">
+                                <i class="fas fa-list-alt"></i>
+                                <select id="uomType" th:field="*{part.id}" required>
+                                    <option value="">- SELECT TYPE -</option> 
+                                    <option th:each="ob:${parts}" th:value="${ob.key}" th:text="${ob.value}"></option>  
+                                                
+                                </select>
+                            </div>
+                         </div>
+                         
+                         <div class="form-col">
+                            <label for="uomModel"><i class="fas fa-cube"></i> QUANTITY</label>
+                            <div class="input-icon">
+                                <i class="fas fa-shapes"></i>
+                                <input type="text" id="uomModel" name="qty" placeholder="Enter quantity" required>
+                            </div>
+                         </div>
+                   </div>
+                    <!-- SECTION #1--------END-------------------- -->
+                   <!-- Hidden input for linking Dtl with order -->
+                   <input type="hidden" name="order.id" th:value="${po.id}"/>
+                   <!-- Hidden input End -->
+                   
+                    <!-- SECTION #2--------START-------------------- -->
+                   <div class="text-center">
+                       <button type="submit" class="btn">
+                           <i class="fas fa-plus-circle"></i> Add Part
+                       </button>
+                   </div>
+                    <!-- SECTION #2--------END-------------------- -->
+                </form>
+                </div>
+                <hr/>
+                <!-- SECTION #3------------START--- -->
+                <div class="table-container">
+                    <div class="card-header">
+                        <h4 class="card-title"><i class="fas fa-list-ol"></i> ADDED PARTS LIST</h4>
+                    </div>
+                    <div class="card-body" style="padding: 0;">
+                        <div style="overflow-x: auto;">
+                            <table class="parts-table">
+                                <thead>
+                                    <tr>
+                                        <th>S.No</th>
+                                        <th>Item Code</th>
+                                        <th>Base Cost</th>
+                                        <th>Quantity</th>
+                                        <th  th:if="${po.status=='PICKING'}">Operations</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr th:each="ob,status:${dtls}">
+                                        <td class="serial-number" th:text="${status.count}"></td>
+                                        <td th:text="${ob.part.partCode}"></td>
+                                        <td>₹<span th:text="${#numbers.formatDecimal(ob.part.partCost, 1, 2)}"></span></td>
+                                        <td><span class="quantity-badge" th:text="${ob.qty}"></span></td>
+                                        <td style="text-align: center;" th:if="${po.status=='PICKING'}">
+                                            <a th:href="@{/po/remove(dtlId=${ob.id}, orderId=${po.id})}" class="btn-danger">
+                                                <i class="fas fa-trash-alt"></i>
+                                                REMOVE
+                                            </a>
+                                        </td>
+                                    </tr>
+                                    <tr th:if="${#lists.isEmpty(dtls)}">
+                                        <td colspan="5" class="empty-state">
+                                            <i class="fas fa-info-circle"></i>
+                                            No parts added yet. Start by adding parts above.
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                <!-- SECTION #3--------END-------------------- -->
+                    <!-- SECTION #4 -->
+                     <div class="text-center" th:if="${po.status}=='PICKING'">
+                         <a th:href="@{/po/conformOrder(orderId=${po.id})}" class="btn btn-sm">
+                             <i class="fas fa-check-circle"></i> Place Order
+                         </a>
+                     </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+        <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.min.js"></script>
+    
+    <!-- jQuery -->
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    
+ 
+</body>
+</html>

@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html xmlns:th="https://www.thymeleaf.org/">
+<head>
+<meta charset="UTF-8">
+<title>User Data Page</title>
+<div th:insert="~{fragments/commonui :: userhead}"></div>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+  
+  <link rel="stylesheet" th:href="@{/css/user-data.css}">
+  
+</head>
+<body> 
+<div th:insert="~{fragments/commonui :: usermenu}"></div>
+
+<div class="container">
+    <div class="header">
+        <h3><i class="fas fa-users"></i> USER DATA PAGE</h3>
+        <div class="record-count" th:text="'Total: ' + ${list.size()}"></div>              
+    </div>
+
+    <div th:if="${message}" class="notification success">
+        <i class="fas fa-check-circle"></i>
+        <span th:text="${message}"></span>
+    </div>
+
+    <div class="card">
+        <div class="card-header">
+            <h4 class="card-title"><i class="fas fa-table"></i> User Records</h4>
+        </div>
+        <div class="card-body">
+            <table>
+               <tr>
+                   <th>ID</th>
+                   <th>NAME</th>
+                   <th>EMAIL</th>
+                   <th>STATUS</th>
+                   <th>ROLES</th>
+                   <th>OPERATION</th>
+               </tr> 
+               <tr th:each="ob:${list}">
+                   <td th:text="${ob.id}"></td>
+                   <td th:text="${ob.name}"></td>
+                   <td th:text="${ob.email}"></td>
+                   <td >
+                       <div th:if="${!ob.active}">
+                          IN-ACTIVE
+                       </div>
+                       <div th:if="${ob.active}">
+                          ACTIVE
+                       </div>
+                   </td>
+                   <td th:text="${ob.roles}"  ></td>
+                   <td   th:if="${session.userOb.id !=ob.id}">
+                       <!-- Updated buttons with improved styling -->
+                       <div th:if="${!ob.active}">
+                           <a class="btn-status btn-active" th:href="@{/user/activate(uid=${ob.id})}">ACTIVATE</a>
+                       </div>
+                       <div th:if="${ob.active}">
+                           <a class="btn-status btn-inactive" th:href="@{/user/inactivate(uid=${ob.id})}">INACTIVATE</a>
+                       </div>
+                   </td> 
+              </tr>
+                <tr th:if="${list.size() == 0}">
+                    <td colspan="6">
+                        <div class="empty-state">
+                            <i class="fas fa-inbox"></i>
+                            <h4>No User Data Available</h4>
+                            <p>No users found in the system.</p>
+                        </div>
+                    </td>
+                </tr>
+            </table>
+        </div>
+    </div>
+    
+
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.min.js"></script>
+</body>
+</html>

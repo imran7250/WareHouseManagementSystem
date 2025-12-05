@@ -1,0 +1,243 @@
+*{
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Poppins', sans-serif;
+        }
+        
+        body {
+            background: linear-gradient(135deg, #0a3d4f 0%, #1a6a82 100%);
+            min-height: 100vh;
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .container {
+            width: 100%;
+            max-width: 500px;
+            background: white;
+            border-radius: 16px;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.15);
+            overflow: hidden;
+            animation: fadeIn 0.6s ease-out;
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(-20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        .header {
+           background: linear-gradient(to right, #1e3c72, #2a5298);
+            color: white;
+            padding: 30px;
+            text-align: center;
+            position: relative;
+        }
+        
+        .header h3 {
+            font-weight: 600;
+            font-size: 26px;
+            margin-bottom: 8px;
+        }
+        
+        .header::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;  
+            width: 100%;
+            height: 4px;
+            background: linear-gradient(to right, #4ecdc4, #2b8e86);
+        }
+        
+        .form-container {
+            padding: 35px;
+        }
+        
+        .form-group {
+            margin-bottom: 24px;
+            position: relative;
+        }
+        
+        .form-group label {
+            display: block;
+            margin-bottom: 10px;
+            font-weight: 500;
+            color: 333;
+            font-size: 15px;
+        }
+        
+        select, input, textarea {
+            width: 100%;
+            padding: 14px 18px;
+            border: 2px solid #e1e5eb;
+            border-radius: 8px;
+            font-size: 15px;
+            transition: all 0.3s ease;
+            background-color: #f8f9fa;
+        }
+        
+        select:focus, input:focus, textarea:focus {
+            outline: none;
+            border-color: #1a6a82;
+            box-shadow: 0 0 0 3px rgba(26, 106, 130, 0.2);
+            background-color: #fff;
+        }
+        
+        textarea {
+            min-height: 110px;
+            resize: vertical;
+        }
+        
+        .input-icon {
+            position: relative;
+        }
+        
+        .input-icon i {
+            position: absolute;
+            left: 18px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: #6c757d;
+            font-size: 16px;
+        }
+        
+        .input-icon select, .input-icon input {
+            padding-left: 50px;
+        }
+        
+        .btn {
+            background: linear-gradient(to right, #1e3c72, #2a5298);
+            color: white;
+            border: none;
+            padding: 16px 20px;
+            border-radius: 8px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            width: 100%;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(26, 106, 130, 0.3);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+        }
+        
+        .btn:hover {
+            background: linear-gradient(to right, #1a3365, #24467a);
+            box-shadow: 0 6px 20px rgba(26, 106, 130, 0.4);
+            transform: translateY(-2px);
+        }
+        
+        .btn:active {
+            transform: translateY(0);
+        }
+        
+        .btn-secondary {
+            background: linear-gradient(to right, #6c757d, #5a6268);
+            margin-top: 15px;
+        }
+        
+        .btn-secondary:hover {
+            background: linear-gradient(to right, #5a6268, #4e555b);
+        }
+        
+        .message {
+            padding: 16px;
+            margin: 20px 0;
+            border-radius: 8px;
+            text-align: center;
+            font-weight: 500;
+            animation: slideIn 0.5s ease-out;
+        }
+        
+        @keyframes slideIn {
+            from { opacity: 0; transform: translateY(-10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        .success {
+            background: #d4edda;
+            color: #155724;
+            border: 1px solid #c3e6cb;
+        }
+        
+        .error {
+            background: #f8d7da;
+            color: #721c24;
+            border: 1px solid #f5c6cb;
+        }
+        
+        .logo {
+            font-size: 32px;
+            margin-bottom: 15px;
+            background: linear-gradient(to right, #4ecdc4, #2b8e86);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            display: inline-block;
+        }
+        
+        .navigation {
+            position: absolute;
+            top: 20px;
+            left: 20px;
+        }
+        
+        .nav-btn {
+            background: rgba(255, 255, 255, 0.2);
+            color: white;
+            border: none;
+            padding: 10px 15px;
+            border-radius: 8px;
+            font-size: 14px;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            backdrop-filter: blur(5px);
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            text-decoration: none;
+        }
+        
+        .nav-btn:hover {
+            background: rgba(255, 255, 255, 0.3);
+            transform: translateY(-2px);
+        }
+        
+        /* AJAX Validation Error Style */
+        .ajax-error {
+            color: #dc3545;
+            font-size: 14px;
+            margin-top: 8px;
+            display: block;
+            animation: fadeIn 0.3s ease-out;
+        }
+        
+        .error-border {
+            border-color: #dc3545;
+        }
+        
+        @media (max-width: 576px) {
+            .container {
+                border-radius: 12px;
+            }
+            
+            .form-container {
+                padding: 25px;
+            }
+            
+            .header {
+                padding: 25px;
+            }
+            
+            .navigation {
+                top: 10px;
+                left: 10px;
+            }
+        }

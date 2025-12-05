@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html xmlns:th="https://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Sale Order Management System</title>
+    <div th:insert="fragments/commonui :: userhead"></div>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+     
+     
+     <link rel="stylesheet" th:href="@{/css/saleorder-data.css}">
+     
+</head>
+<body>
+    <div th:insert="fragments/commonui :: usermenu"></div>
+
+    <header>
+        <div class="header-content">
+            <h3><i class="fas fa-shopping-cart"></i> SALE ORDER DATA PAGE</h3>
+            <div class="header-buttons">
+                <a th:href="@{/so/register}" class="btn btn-primary">
+                    <i class="fas fa-plus-circle"></i> NEW SALE ORDER
+                </a>
+                <div class="record-count" th:text="'Total Records: ' + ${list.size()}"></div>
+            </div>
+        </div>
+    </header>
+
+    <div class="container">
+        <div th:if="${message}" class="notification success">
+            <i class="fas fa-check-circle"></i>
+            <span th:text="${message}"></span>
+        </div>
+
+        <div class="card">
+            <div class="card-header">
+                <h4 class="card-title"><i class="fas fa-table"></i> SO Data</h4>
+            </div>
+            <div class="card-body">
+                <table>
+                    <tr>
+                        <th>ID</th>
+                        <th>CODE</th>
+                        <th>STATUS</th>
+                        <th>SHIPMENT</th>
+                        <th>CUSTOMER</th>
+                        <th>STOCK MODE</th>
+                        <th>STOCK SOURCE</th>
+                        <th colspan="2">OPERATION</th>
+                    </tr>
+                     <tr th:each="ob : ${list}">
+    <td th:text="${ob.id}"></td>
+    <td th:text="${ob.orderCode}"></td>
+<td>
+    <span th:class="${'status-badge ' + 
+        (ob.status == 'SALE-OPEN' ? 'status-open' : 
+        ob.status == 'SALE-READY' ? 'status-picking' : 
+        ob.status == 'SALE-CONFIRMED' ? 'status-ordered' : 
+        ob.status == 'INVOICED' ? 'status-invoiced' : '')}"
+        th:text="${ob.status.replace('SALE-', '')}">
+    </span>
+</td>
+    <td th:text="${ob.shipmentType?.shipmentCode} ?: 'N/A'"></td>
+    <td th:text="${ob.customer?.userCode} ?: 'N/A'"></td>
+    <td th:text="${ob.stockMode} ?: 'N/A'"></td>
+    <td th:text="${ob.stockSource} ?: 'N/A'"></td>
+    <td>
+        <a class="btn btn-primary" th:href="@{/so/parts(id=${ob.id})}">ADD PARTS</a>
+    </td>
+    <td>
+        <div class="btn btn-darkcyan" th:if="${ob.status == 'SALE-READY' or ob.status == 'SALE-OPEN'}">NOT ORDERED</div>
+        <a th:if="${ob.status == 'SALE-CONFIRMED'}" class="btn btn-danger" th:href="@{/so/genInv(id=${ob.id})}">SALE-SHIPPED</a>
+        <a th:if="${ob.status == 'INVOICED'}" class="btn btn-success" th:href="@{/so/printInv(id=${ob.id})}">PRINT INVOICE</a>
+    </td>
+</tr>
+                    <tr th:if="${list.size() == 0}">
+                        <td colspan="9">
+                            <div class="empty-state">
+                                <i class="fas fa-inbox"></i>
+                                <h4>No Sale Order Data Available</h4>
+                                <p>Click the Add New Sale Order button to create your first sale order.</p>
+                            </div>
+                        </td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+
+        <!-- PAGINATION START -->
+        <nav aria-label="Page navigation example">
+            <ul class="pagination justify-content-center">
+                <!-- Previous Button -->
+                <li class="page-item" th:classappend="${page.first} ? 'disabled' : ''">
+                    <a class="page-link" th:href="@{/so/all(page=${page.number - 1})}" aria-label="Previous">
+                        <span aria-hidden="true">Previous</span>
+                        <span class="sr-only">Previous</span>
+                    </a>
+                </li>
+
+                <!-- Page Numbers -->
+                <th:block th:each="i : ${#numbers.sequence(0, page.totalPages-1)}">
+                    <li class="page-item" th:classappend="${page.number == i} ? 'active' : ''">
+                        <a class="page-link" th:href="@{/so/all(page=${i})}">[[${i+1}]]</a>
+                    </li>
+                </th:block>
+
+                <!-- Next Button -->
+                <li class="page-item" th:classappend="${page.last} ? 'disabled' : ''">
+                    <a class="page-link" th:href="@{/so/all(page=${page.number + 1})}" aria-label="Next">
+                        <span aria-hidden="true">Next</span>
+                        <span class="sr-only">Next</span>
+                    </a>
+                </li>
+            </ul>
+        </nav>
+        <!-- PAGINATION END -->
+    </div>
+
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.min.js"></script>
+    <!-- jQuery -->
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+</body>
+</html>

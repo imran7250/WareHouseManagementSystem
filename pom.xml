@@ -1,0 +1,187 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+	<parent>
+		<groupId>org.springframework.boot</groupId>
+		<artifactId>spring-boot-starter-parent</artifactId>
+		<version>3.5.4</version>
+		<relativePath/> <!-- lookup parent from repository -->
+	</parent>
+	<groupId>nit</groupId>
+	<artifactId>WareHouseApp</artifactId>
+	<version>0.0.1-SNAPSHOT</version>
+	<name>WareHouseApp</name>
+	<description>Demo project for Spring Boot</description>
+	<!-- Removed empty unnecessary elements -->
+	<properties>
+		<java.version>17</java.version>
+		<!-- Consider adding versions for better management -->
+		<poi.version>5.2.5</poi.version>
+		<itext.version>2.1.7</itext.version>
+		<jfreechart.version>1.5.4</jfreechart.version>
+		<jcommon.version>1.0.24</jcommon.version>
+	</properties>
+	<dependencies>
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-data-jpa</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-thymeleaf</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-web</artifactId>
+		</dependency>
+
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-devtools</artifactId>
+			<scope>runtime</scope>
+			<optional>true</optional>
+		</dependency>
+		<dependency>
+			<groupId>com.mysql</groupId>
+			<artifactId>mysql-connector-j</artifactId>
+			<scope>runtime</scope>
+		</dependency>
+		<dependency>
+			<groupId>org.projectlombok</groupId>
+			<artifactId>lombok</artifactId>
+			<optional>true</optional>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-test</artifactId>
+			<scope>test</scope>
+		</dependency>
+		<!--EXCEL EXPORT-->
+		    <!-- Apache POI (main library for Excel) -->
+    <dependency>
+        <groupId>org.apache.poi</groupId>
+        <artifactId>poi</artifactId>
+        <version>${poi.version}</version>
+    </dependency>
+
+    <!-- Apache POI - OOXML support (for .xlsx, if you switch to AbstractXlsxView) -->
+    <dependency>
+        <groupId>org.apache.poi</groupId>
+        <artifactId>poi-ooxml</artifactId>
+        <version>${poi.version}</version>
+    </dependency>
+    <!--PDF EXPORT-->
+    <dependency>
+       <groupId>com.lowagie</groupId>
+       <artifactId>itext</artifactId>
+       <version>${itext.version}</version>
+    </dependency>
+    
+     <!--JFree Charts - Compatible with Spring Boot 3.5.4-->
+     <dependency>
+       <groupId>org.jfree</groupId>
+       <artifactId>jfreechart</artifactId>
+       <version>${jfreechart.version}</version>
+    </dependency>
+
+   <dependency>
+      <groupId>org.jfree</groupId>
+      <artifactId>jcommon</artifactId>
+      <version>${jcommon.version}</version>
+   </dependency>
+
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-batch</artifactId>
+		</dependency>
+		<!-- Removed redundant spring-batch-core -->
+		<dependency>
+			<groupId>org.springframework.batch</groupId>
+			<artifactId>spring-batch-test</artifactId>
+			<scope>test</scope>
+		</dependency>
+
+
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-security</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework.security</groupId>
+			<artifactId>spring-security-test</artifactId>
+			<scope>test</scope>
+		</dependency>
+		 
+           <dependency>
+              <groupId>org.thymeleaf.extras</groupId>
+                <artifactId>thymeleaf-extras-springsecurity6</artifactId>
+           </dependency>
+
+
+             <dependency>
+               <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-starter-mail</artifactId>
+             </dependency>
+
+
+               <!-- Spring Boot Data JPA (includes HikariCP and enables datasource auto-config) -->
+    <dependency>
+        <groupId>org.springframework.boot</groupId>
+        <artifactId>spring-boot-starter-data-jpa</artifactId>
+    </dependency>
+
+    <!-- MySQL Connector (driver for your datasource) -->
+    <dependency>
+        <groupId>com.mysql</groupId>
+        <artifactId>mysql-connector-j</artifactId>
+        <scope>runtime</scope>
+    </dependency>
+
+    <!-- Other dependencies like spring-boot-starter-web, thymeleaf, etc., as needed -->
+
+	</dependencies>
+
+	<build>
+		<plugins>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-compiler-plugin</artifactId>
+				<configuration>
+					<annotationProcessorPaths>
+						<path>
+							<groupId>org.projectlombok</groupId>
+							<artifactId>lombok</artifactId>
+						</path>
+					</annotationProcessorPaths>
+				</configuration>
+			</plugin>
+			<plugin>
+				<groupId>org.springframework.boot</groupId>
+				<artifactId>spring-boot-maven-plugin</artifactId>
+				<configuration>
+					<excludes>
+						<exclude>
+							<groupId>org.projectlombok</groupId>
+							<artifactId>lombok</artifactId>
+						</exclude>
+					</excludes>
+				</configuration>
+			</plugin>
+		</plugins>
+	</build>
+
+	<url/>
+	<licenses>
+		<license/>
+	</licenses>
+	<developers>
+		<developer/>
+	</developers>
+	<scm>
+		<connection/>
+		<developerConnection/>
+		<tag/>
+		<url/>
+	</scm>
+</project>

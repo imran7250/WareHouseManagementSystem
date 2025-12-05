@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html xmlns:th="https://www.thymeleaf.org/">
+<head >
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>UOM Update</title>
+<div th:insert="~{fragments/commonui :: userhead}"></div>
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+   <link rel="stylesheet" th:href="@{/css/uom-edit.css}">
+
+</head>
+<body>
+   <div th:insert="~{fragments/commonui :: usermenu}"></div>
+
+    <div class="container">
+     
+        
+        <div class="card">
+            <div class="card-header">
+                <h2><i class="fas fa-edit"></i> Update UOM Details</h2>
+            </div>
+            
+            <div class="card-body">
+                <form th:action="@{/uom/update}" method="POST" th:object="${uom}">
+                    <div class="form-group">
+                        <label for="id">UOM ID</label>
+                        <div class="input-icon">
+                            <i class="fas fa-key"></i>
+                            <input type="text" class="form-control" th:field="*{id}" id="id" readonly>
+                        </div>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="uomType">Type</label>
+                        <div class="input-icon">
+                            <i class="fas fa-tag"></i>
+                            <select class="form-control" th:field="*{uomType}" id="uomType">
+                                <option value="">- SELECT TYPE -</option>   
+                                <option value="PACKING">PACKING</option>
+                                <option value="NO PACKING">NO PACKING</option>
+                                <option value="NA">NA</option>        
+                            </select>
+                        </div>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="uomModel">Model</label>
+                        <div class="input-icon">
+                            <i class="fas fa-cube"></i>
+                            <input type="text" class="form-control" th:field="*{uomModel}" id="uomModel" placeholder="Enter UOM model">
+                        </div>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="description">Description</label>
+                        <div class="input-icon">
+                            <i class="fas fa-align-left"></i>
+                            <textarea class="form-control" th:field="*{description}" id="description" placeholder="Enter UOM description"></textarea>
+                        </div>
+                    </div>
+                    
+                    <button type="submit" class="btn btn-success btn-block">
+                        <i class="fas fa-save"></i> UPDATE UOM
+                    </button>
+                </form>
+            </div>
+        </div>
+        
+     
+    </div>
+
+         <!-- jQuery -->
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>   
+            
+    <script th:src="@{/js/uom-edit.js}"></script>
+</body>
+</html>

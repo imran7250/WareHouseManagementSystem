@@ -1,0 +1,404 @@
+ :root {
+            --primary: #3498db;
+            --primary-dark: #2980b9;
+            --secondary: #2c3e50;
+            --success: #27ae60;
+            --success-dark: #219653;
+            --danger: #e74c3c;
+            --danger-dark: #c0392b;
+            --warning: #f39c12;
+            --warning-dark: #e67e22;
+            --light: #f8f9fa;
+            --dark: #343a40;
+            --gray: #6c757d;
+            --border: #dee2e6;
+            --shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+            --radius: 8px;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            background: linear-gradient(135deg, #f5f7fa 0%, #e3e8f0 100%);
+            min-height: 100vh;
+            color: var(--dark);
+        }
+        
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        
+        .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 30px;
+            flex-wrap: wrap;
+            gap: 20px;
+            background: white;
+            padding: 25px;
+            border-radius: var(--radius);
+            box-shadow: var(--shadow);
+        }
+        
+        .page-title {
+            color: var(--secondary);
+            font-size: 28px;
+            font-weight: 700;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+        
+        .page-title i {
+            color: var(--primary);
+        }
+        
+        .actions {
+            display: flex;
+            gap: 15px;
+        }
+        
+        .btn {
+            padding: 10px 20px;
+            border-radius: var(--radius);
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            text-decoration: none;
+            transition: all 0.3s ease;
+            border: none;
+            cursor: pointer;
+            font-size: 15px;
+        }
+        
+        .btn-primary {
+            background: var(--primary);
+            color: white;
+        }
+        
+        .btn-primary:hover {
+            background: var(--primary-dark);
+            transform: translateY(-2px);
+            box-shadow: 0 6px 15px rgba(52, 152, 219, 0.3);
+        }
+        
+        .btn-excel {
+            background: var(--success);
+            color: white;
+        }
+        
+        .btn-excel:hover {
+            background: var(--success-dark);
+            transform: translateY(-2px);
+            box-shadow: 0 6px 15px rgba(39, 174, 96, 0.3);
+        }
+        
+        .btn-pdf {
+            background: var(--danger);
+            color: white;
+        }
+        
+        .btn-pdf:hover {
+            background: var(--danger-dark);
+            transform: translateY(-2px);
+            box-shadow: 0 6px 15px rgba(231, 76, 60, 0.3);
+        }
+        
+        .data-card {
+            background: white;
+            border-radius: var(--radius);
+            box-shadow: var(--shadow);
+            overflow: hidden;
+            margin-bottom: 30px;
+        }
+        
+        .card-header {
+            padding: 20px 25px;
+            background: var(--light);
+            border-bottom: 1px solid var(--border);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 15px;
+        }
+        
+        .card-title {
+            font-size: 20px;
+            font-weight: 600;
+            color: var(--secondary);
+        }
+        
+        .export-container {
+            display: flex;
+            gap: 15px;
+        }
+        
+        .table-container {
+            overflow-x: auto;
+        }
+        
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            min-width: 800px;
+        }
+        
+        thead {
+            background: var(--secondary);
+            color: white;
+        }
+        
+        th {
+            padding: 16px 20px;
+            text-align: left;
+            font-weight: 600;
+            font-size: 15px;
+        }
+        
+        tbody tr {
+            border-bottom: 1px solid var(--border);
+            transition: background 0.3s;
+        }
+        
+        tbody tr:hover {
+            background: rgba(52, 152, 219, 0.05);
+        }
+        
+        td {
+            padding: 16px 20px;
+            color: var(--dark);
+        }
+        
+        .operation-cell {
+            display: flex;
+            gap: 10px;
+        }
+        
+        .action-btn {
+            padding: 6px 12px;
+            border-radius: 4px;
+            font-size: 13px;
+            font-weight: 500;
+            display: inline-flex;
+            align-items: center;
+            gap: 5px;
+            text-decoration: none;
+            transition: all 0.3s;
+        }
+        
+        .edit-btn {
+            background: var(--warning);
+            color: white;
+        }
+        
+        .edit-btn:hover {
+            background: var(--warning-dark);
+        }
+        
+        .delete-btn {
+            background: var(--danger);
+            color: white;
+        }
+        
+        .delete-btn:hover {
+            background: var(--danger-dark);
+        }
+        
+        .status-badge {
+            display: inline-block;
+            padding: 6px 12px;
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: 500;
+        }
+        
+        .enabled {
+            background: rgba(39, 174, 96, 0.15);
+            color: var(--success-dark);
+        }
+        
+        .disabled {
+            background: rgba(231, 76, 60, 0.15);
+            color: var(--danger-dark);
+        }
+        
+        .grade-a {
+            background: rgba(39, 174, 96, 0.15);
+            color: var(--success-dark);
+        }
+        
+        .grade-b {
+            background: rgba(52, 152, 219, 0.15);
+            color: var(--primary-dark);
+        }
+        
+        .grade-other {
+            background: rgba(108, 117, 125, 0.15);
+            color: var(--gray);
+        }
+        
+        .message {
+            padding: 15px 20px;
+            margin-top: 20px;
+            border-radius: var(--radius);
+            text-align: center;
+            font-weight: 500;
+        }
+        
+        .success {
+            background: rgba(39, 174, 96, 0.15);
+            color: var(--success-dark);
+            border: 1px solid rgba(39, 174, 96, 0.3);
+        }
+        
+        .error {
+            background: rgba(231, 76, 60, 0.15);
+            color: var(--danger-dark);
+            border: 1px solid rgba(231, 76, 60, 0.3);
+        }
+        
+        .empty-state {
+            text-align: center;
+            padding: 60px 20px;
+            color: var(--gray);
+        }
+        
+        .empty-state i {
+            font-size: 70px;
+            margin-bottom: 20px;
+            color: #bdc3c7;
+        }
+        
+        .empty-state p {
+            font-size: 18px;
+            margin-bottom: 25px;
+        }
+        
+        .pagination-container {
+            display: flex;
+            justify-content: center;
+            margin-top: 30px;
+        }
+        
+        .pagination {
+            display: flex;
+            gap: 8px;
+            list-style: none;
+        }
+        
+        .page-item {
+            margin: 0;
+        }
+        
+        .page-link {
+            display: block;
+            padding: 10px 16px;
+            border-radius: var(--radius);
+            background: white;
+            color: var(--dark);
+            text-decoration: none;
+            font-weight: 500;
+            transition: all 0.3s;
+            border: 1px solid var(--border);
+        }
+        
+        .page-link:hover {
+            background: var(--primary);
+            color: white;
+            border-color: var(--primary);
+        }
+        
+        .page-item.active .page-link {
+            background: var(--primary);
+            color: white;
+            border-color: var(--primary);
+        }
+        
+        .page-item.disabled .page-link {
+            background: var(--light);
+            color: var(--gray);
+            cursor: not-allowed;
+        }
+        
+        @media (max-width: 992px) {
+            .container {
+                padding: 15px;
+            }
+            
+            .header {
+                padding: 20px;
+            }
+            
+            .card-header {
+                padding: 15px 20px;
+            }
+        }
+        
+        @media (max-width: 768px) {
+            .header {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+            
+            .actions {
+                width: 100%;
+                justify-content: flex-start;
+            }
+            
+            .card-header {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+            
+            .export-container {
+                width: 100%;
+                justify-content: flex-start;
+            }
+            
+            th, td {
+                padding: 12px 15px;
+            }
+            
+            .action-btn {
+                padding: 5px 10px;
+                font-size: 12px;
+            }
+            
+            .operation-cell {
+                flex-direction: column;
+                gap: 8px;
+            }
+        }
+        
+        @media (max-width: 576px) {
+            .btn {
+                padding: 8px 15px;
+                font-size: 14px;
+            }
+            
+            .page-title {
+                font-size: 24px;
+            }
+            
+            .empty-state {
+                padding: 40px 15px;
+            }
+            
+            .empty-state i {
+                font-size: 50px;
+            }
+            
+            .empty-state p {
+                font-size: 16px;
+            }
+        }

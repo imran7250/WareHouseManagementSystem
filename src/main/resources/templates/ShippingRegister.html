@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html xmlns:th="https://www.thymeleaf.org/">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Shipping Register</title>
+    <div th:insert="~{fragments/commonui :: userhead}"></div>
+    
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+   <link rel="stylesheet" th:href="@{/css/shipping_register.css}">
+
+</head>
+<body>
+
+    <div th:insert="~{fragments/commonui :: usermenu}"></div>
+
+
+    <div class="container">
+        <div class="header">
+            <div class="shape shape-1"></div>
+            <div class="shape shape-2"></div>
+            <div class="header-content">
+                <div class="logo">
+                    <i class="fas fa-shipping-fast"></i>
+                </div>
+                <h3>Shipping Registration</h3>
+                <p>Create a new Shipping Record</p>
+            </div>
+        </div>
+        
+        <div class="form-container">
+            <form th:action="@{/shipping/save}" method="POST" th:object="${shipping}" id="shippingForm">
+                              
+                <div class="form-group">
+                    <label for="code"><i class="fas fa-barcode"></i> Shipping Code</label>
+                    <div class="input-icon">
+                        <i class="fas fa-tag"></i>
+                        <input type="text" id="code" th:field="*{code}" placeholder="Enter Shipping Code" required>
+                    </div>
+                    <span id="codeError" class="ajax-error"></span>
+                </div>
+                
+                <div class="form-group">
+                    <label for="shippingRefNum"><i class="fas fa-hashtag"></i> Shipping Ref Number</label>
+                    <div class="input-icon">
+                        <i class="fas fa-hashtag"></i>
+                        <input type="text" id="shippingRefNum" th:field="*{shippingRefNum}" placeholder="Enter Shipping Ref Number" required>
+                    </div>
+                    <span id="shippingRefNumError" class="ajax-error"></span>
+                </div>
+                
+                <div class="form-group">
+                    <label for="courierRefNum"><i class="fas fa-hashtag"></i> Courier Ref Number</label>
+                    <div class="input-icon">
+                        <i class="fas fa-hashtag"></i>
+                        <input type="text" id="courierRefNum" th:field="*{courierRefNum}" placeholder="Enter Courier Ref Number" required>
+                    </div>
+                    <span id="courierRefNumError" class="ajax-error"></span>
+                </div>
+                
+                <div class="form-group">
+                    <label for="contactDetails"><i class="fas fa-phone"></i> Contact Details</label>
+                    <div class="input-icon">
+                        <i class="fas fa-phone"></i>
+                        <input type="text" id="contactDetails" th:field="*{contactDetails}" placeholder="Enter Contact Details" required>
+                    </div>
+                    <span id="contactDetailsError" class="ajax-error"></span>
+                </div>
+                
+                <div class="form-group">
+                    <label for="so"><i class="fas fa-file-invoice"></i> Sale Order Code</label>
+                    <div class="input-icon">
+                        <i class="fas fa-shopping-cart"></i>
+                        <select id="so" th:field="*{so.id}" required>
+                            <option value="">- SELECT SALE ORDER CODE -</option>   
+                            <option th:each="ob:${sos}" th:value="${ob.key}" th:text="${ob.value}"/>
+                        </select>
+                    </div>
+                </div>
+                
+                <div class="form-group">
+                    <label for="description"><i class="fas fa-align-left"></i> Description</label>
+                    <textarea id="description" th:field="*{description}" placeholder="Enter Shipping Description"></textarea>
+                </div>
+                
+                <button type="submit" class="btn">
+                    <i class="fas fa-plus-circle"></i> CREATE SHIPPING
+                </button>
+                
+                <a th:href="@{/shipping/all}" class="btn btn-secondary">
+                    <i class="fas fa-table"></i> VIEW ALL SHIPPING  
+                </a>
+            </form>
+        </div>
+    </div>
+    
+    <div th:if="${message}" class="message" th:classappend="${#strings.contains(message, 'success') || #strings.contains(message, 'Success')} ? success : error" th:text="${message}"></div>
+    
+
+   
+    
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.min.js"></script>
+    
+    <!-- jQuery -->
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+        <script th:src="@{/js/shipping-register.js}"></script>
+    
+</body>
+</html>

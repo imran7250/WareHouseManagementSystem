@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html xmlns:th="https://www.thymeleaf.org/">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Shipment Type Data</title>
+    
+    <div th:insert="~{fragments/commonui :: userhead}"></div>
+    
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  
+    <link rel="stylesheet" th:href="@{/css/shipment-data.css}">
+  
+</head>
+<body>  
+
+    <div th:insert="~{fragments/commonui :: usermenu}"></div>
+               
+    <div class="container">
+        <div class="header">
+            <h1 class="page-title"><i class="fas fa-shipping-fast"></i> SHIPMENT TYPE DATA</h1>
+            <div class="actions">
+                <a th:href="@{/st/register}" class="btn btn-primary">
+                    <i class="fas fa-plus"></i> Add New Shipment
+                </a>
+            </div>
+        </div>
+        
+        <div class="data-card">
+            <div class="card-header">
+                <h2 class="card-title">Shipment Types</h2>
+                <div class="export-container">
+                    <a th:href="@{/st/excel}" class="btn btn-excel">
+                        <i class="fas fa-file-excel"></i> Export to Excel
+                    </a>
+                    <a th:href="@{/st/pdf}" class="btn btn-pdf">
+                        <i class="fas fa-file-pdf"></i> Export to PDF
+                    </a>
+                </div>
+            </div>
+            
+            <div class="table-container">
+                <table>
+                    <thead>   
+                        <tr>
+                            <th>ID</th>
+                            <th>MODE</th>
+                            <th>CODE</th>
+                            <th>ENABLED</th>   
+                            <th>GRADE</th>
+                            <th>DESCRIPTION</th>
+                            <th>OPERATION</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr th:each="ob : ${list}">
+                            <td th:text="${ob.id}"></td>  
+                            <td th:text="${ob.shipmentMode}"></td>  
+                            <td th:text="${ob.shipmentCode}"></td>
+                            <td>
+                                <span th:if="${ob.enableShipment == 'YES'}" class="status-badge enabled">YES</span>
+                                <span th:if="${ob.enableShipment == 'NO'}" class="status-badge disabled">NO</span>
+                            </td>
+                            <td>
+                                <span th:text="${ob.shipmentGrade}" 
+                                      th:classappend="${ob.shipmentGrade == 'A'} ? 'status-badge grade-a' : 
+                                                      (${ob.shipmentGrade == 'B'} ? 'status-badge grade-b' : 'status-badge grade-other')">
+                                </span>
+                            </td>     
+                            <td th:text="${ob.description}"></td>
+                            <td>
+                                <div class="operation-cell">
+                                    <a th:href="@{/st/edit?id={data}(data=${ob.id})}" class="action-btn edit-btn">
+                                        <i class="fas fa-edit"></i> EDIT
+                                    </a>
+                                    <a th:href="@{/st/delete?id={data}(data=${ob.id})}" class="action-btn delete-btn">
+                                        <i class="fas fa-trash"></i> DELETE
+                                    </a>
+                                </div>
+                            </td>
+                        </tr>
+                        <tr th:if="${#lists.isEmpty(list)}">
+                            <td colspan="7">
+                                <div class="empty-state">
+                                    <i class="fas fa-inbox"></i>
+                                    <p>No shipment types found</p>
+                                    <a th:href="@{/st/register}" class="btn btn-primary">
+                                        <i class="fas fa-plus"></i> Create First Shipment
+                                    </a>
+                                </div>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>  
+        </div>
+        
+        <!-- PAGINATION START -->
+        <div class="pagination-container" th:if="${!#lists.isEmpty(list)}">
+            <ul class="pagination">
+                <!-- Previous Button -->
+                <li class="page-item" th:classappend="${page.first} ? 'disabled' : ''">
+                    <a class="page-link" th:href="@{/st/all(page=${page.number - 1})}" aria-label="Previous">
+                        <span aria-hidden="true">Previous</span>
+                    </a>
+                </li>
+                
+                <!-- Page Numbers -->
+                <th:block th:each="i:${#numbers.sequence(0,page.totalPages-1)}">                           
+                    <li class="page-item" th:classappend="${page.number == i} ? 'active' : ''">
+                        <a class="page-link" th:href="@{/st/all(page=${i})}">[[${i+1}]]</a>
+                    </li>
+                </th:block>
+                
+                <!-- Next Button -->
+                <li class="page-item" th:classappend="${page.last} ? 'disabled' : ''">
+                    <a class="page-link" th:href="@{/st/all(page=${page.number + 1})}" aria-label="Next">
+                        <span aria-hidden="true">Next</span>
+                    </a>
+                </li>
+            </ul>
+        </div>
+        <!-- PAGINATION END -->
+        
+        <div th:if="${message}" class="message" th:classappend="${#strings.contains(message, 'success') || #strings.contains(message, 'Success')} ? 'success' : 'error'" th:text="${message}"></div>
+    </div>
+
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.min.js"></script>
+    
+    <!-- jQuery -->
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    
+  <script type="text/javascript" th:src="@{/js/shipment-data.js}"></script>
+    
+</body>
+</html>

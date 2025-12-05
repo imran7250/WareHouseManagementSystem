@@ -1,0 +1,127 @@
+:root {
+    --primary: #4361ee;
+    --primary-light: #4895ef;
+    --light: #f8f9fa;
+    --dark: #212529;
+    --gray: #6c757d;
+    --danger: #e63946;
+    --border: #dee2e6;
+    --card-shadow: 0 5px 15px rgba(0, 0, 0, 0.08);
+    --transition: all 0.3s ease;
+}
+
+body {
+    background: linear-gradient(120deg, #fdfbfb 0%, #ebedee 100%);
+    color: var(--dark);
+    font-family: 'Poppins', sans-serif;
+    line-height: 1.6;
+    min-height: 100vh;
+    padding: 20px;
+}
+
+.container {
+    max-width: 800px;
+    margin: 0 auto;
+}
+
+.notification {
+    padding: 15px 20px;
+    border-radius: 8px;
+    margin-bottom: 20px;
+    font-weight: 500;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    box-shadow: var(--card-shadow);
+}
+
+.notification.success {
+    background: linear-gradient(to right, #d4edda 0%, #c3e6cb 100%);
+    color: #155724;
+    border-left: 4px solid #28a745;
+}
+
+.profile-card {
+    background: white;
+    border-radius: 12px;
+    box-shadow: var(--card-shadow);
+    overflow: hidden;
+    margin-bottom: 25px;
+}
+
+.profile-header {
+    background: linear-gradient(120deg, var(--primary-light) 0%, var(--primary) 100%);
+    padding: 20px;
+    color: white;
+    text-align: center;
+}
+
+.profile-title {
+    font-size: 22px;
+    font-weight: 600;
+    margin: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+}
+
+.profile-body {
+    padding: 0;
+}
+
+.profile-table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.profile-table tr {
+    border-bottom: 1px solid var(--border);
+    transition: var(--transition);
+}
+
+.profile-table tr:hover {
+    background-color: rgba(67, 97, 238, 0.03);
+}
+
+.profile-table td {
+    padding: 18px 20px;
+    font-size: 16px;
+}
+
+.profile-table td:first-child {
+    background-color: #e9f7fe;
+    font-weight: 600;
+    width: 30%;
+    color: var(--primary);
+    border-right: 1px solid var(--border);
+}
+
+.btn-update {
+    background: linear-gradient(to right, var(--danger) 0%, #f55951 100%);
+    color: white;
+    border: none;
+    border-radius: 6px;
+    padding: 10px 20px;
+    font-weight: 500;
+    transition: var(--transition);
+    text-decoration: none;
+    display: inline-block;
+}
+
+.btn-update:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 10px rgba(230, 57, 70, 0.3);
+    color: white;
+}
+
+@media (max-width: 768px) {
+    .container {
+        padding: 10px;
+    }
+    
+    .profile-table td {
+        padding: 12px 15px;
+        font-size: 14px;
+    }
+}

@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>User Home</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body>
+    <!-- Include navbar -->
+    <div th:replace="fragments/commonui :: usermenu"></div>
+
+    <div class="container mt-5 text-center">
+        <h2>Welcome, <span th:text="${#session.getAttribute('userOb').name}"></span>!</h2>
+        <p>Your roles: <span th:text="${#session.getAttribute('userOb').roles}"></span></p>
+        <a th:href="@{/uom/all}" class="btn btn-primary mt-3">Go to UOM</a>
+    </div>
+</body>
+</html>
