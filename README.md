@@ -67,8 +67,7 @@ Run project on server
 
 Access in browser:
 
-http://localhost:8080/WMS/
-
+http://localhost:9090/WareHouseAppIMRAN-MajorProject/
 📊 Screenshots (Optional)
 
 Add your screenshots here:
