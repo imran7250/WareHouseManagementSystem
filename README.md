@@ -65,17 +65,7 @@ Add Tomcat Server in Eclipse
 
 Run project on server
 
-Access in browser:
 
-http://localhost:9090/WareHouseAppIMRAN-MajorProject/
-📊 Screenshots (Optional)
-
-Add your screenshots here:
-
-/screenshots
- ├── dashboard.png
- ├── product-list.png
- ├── stock-report.png
 
 🌟 Future Enhancements
 
