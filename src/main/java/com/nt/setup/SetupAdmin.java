@@ -24,7 +24,7 @@ public class SetupAdmin implements CommandLineRunner {
         User user = new User();
         user.setName("NareshIT");
         user.setEmail("nit@gmail.com");
-        user.setPwd(passwordEncoder.encode("nit")); // Encode the password
+        user.setPwd("nit"); // Encode the password
         user.setActive(true);
         user.setRoles(List.of("ADMIN", "APPUSER"));
         
