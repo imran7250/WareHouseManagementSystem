@@ -11,4 +11,6 @@ public interface PartRepository extends JpaRepository<Part, Integer> {
    
 	@Query("SELECT p.id,p.partCode FROM Part p")
 	List<Object[]> getPartIdAndCode();
+	
+	//Long countByUomId(Integer uomId);
 }
