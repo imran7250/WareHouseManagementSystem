@@ -5,6 +5,8 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import com.nt.view.OrderMethodExcelView;
+import com.nt.view.OrderMethodPdfView;
 import org.springframework.data.web.PageableDefault;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -120,7 +122,7 @@ public class OrderMethodController {
 	     }
 	     return message; 
 	 } 
-	 /*
+	 
 	 
 	 //7.Excel Export
 	 @GetMapping("/excel")
@@ -149,15 +151,15 @@ public class OrderMethodController {
 	  
 	 
 	 //10. show charts
-	 @GetMapping("/charts")
-	 public String showCharts() {
-		 List<Object[]> data=service.getOrderMethodTypeAndCount();
-		    String path = sc.getRealPath("/images");
-		 util.generatePie(path, data);
-		 util.generateBar(path, data);   
-		 return "OrderMethodCharts";
-	 }
-	 */
+	 // @GetMapping("/charts")
+	 // public String showCharts() {
+		//  List<Object[]> data=service.getOrderMethodTypeAndCount();
+		//     String path = sc.getRealPath("/images");
+		//  util.generatePie(path, data);
+		//  util.generateBar(path, data);   
+		//  return "OrderMethodCharts";
+	 // }
+	 
 	 
 //	 // ================= ERROR HANDLER INSIDE CONTROLLER =================
 //	 // Commented out as OrderMethodNotFoundException class doesn't exist
