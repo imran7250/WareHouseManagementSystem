@@ -35,10 +35,22 @@ public class SecurityConfig {
     @Bean
     protected SecurityFilterChain configure(HttpSecurity http) throws Exception {
         http
-            .authorizeHttpRequests(authz -> authz
-                // Permit public endpoints first
-                .requestMatchers("/user/showLogin","/user/showForgotPwd","/user/newPwdGen","/user/register", "/user/save",
-                                 "/css/**", "/js/**", "/webjars/**").permitAll()
+          .authorizeHttpRequests(authz -> authz
+    // Public endpoints
+    .requestMatchers(
+        "/",
+        "/user/showLogin",
+        "/user/showForgotPwd",
+        "/user/newPwdGen",
+        "/user/register",
+        "/user/save",
+        "/css/**",
+        "/js/**",
+        "/webjars/**",
+
+        // Actuator health endpoint
+        "/actuator/health"
+    ).permitAll()
                 // Allow session setup for ANY authenticated user (key fix for 403)
                 .requestMatchers("/user/setupSession").authenticated()
                 // Restrict specific admin-only user endpoints
