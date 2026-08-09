@@ -39,6 +39,7 @@ public class SecurityConfig {
     // Public endpoints
     .requestMatchers(
         "/",
+         "/error", 
         "/user/showLogin",
         "/user/showForgotPwd",
         "/user/newPwdGen",
