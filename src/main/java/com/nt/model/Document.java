@@ -12,10 +12,10 @@ import lombok.Data;
 @Entity
 @Table(name="docs_tab")
 public class Document {
-   
+
 	@Id
-	@GeneratedValue
-	@Column(name="doc_id")
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name="doc_id")
 	private Integer docId;
 	@Column(name="doc_name")
 	private String docName;
