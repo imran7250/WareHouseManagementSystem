@@ -8,7 +8,7 @@
         <groupId>org.springframework.boot</groupId>
         <artifactId>spring-boot-starter-parent</artifactId>
         <version>3.5.4</version>
-        <relativePath/> <!-- lookup parent from repository -->
+        <relativePath/>
     </parent>
 
     <groupId>nit</groupId>
@@ -19,6 +19,8 @@
 
     <properties>
         <java.version>17</java.version>
+        <maven-compiler-plugin.version>3.13.0</maven-compiler-plugin.version>
+        <lombok.version>1.18.38</lombok.version> <!-- explicit version -->
         <poi.version>5.2.5</poi.version>
         <itext.version>2.1.7</itext.version>
         <jfreechart.version>1.5.4</jfreechart.version>
@@ -56,7 +58,7 @@
             <artifactId>spring-boot-starter-actuator</artifactId>
         </dependency>
 
-        <!-- Thymeleaf extras for Spring Security -->
+        <!-- Thymeleaf extras -->
         <dependency>
             <groupId>org.thymeleaf.extras</groupId>
             <artifactId>thymeleaf-extras-springsecurity6</artifactId>
@@ -69,13 +71,15 @@
             <scope>runtime</scope>
         </dependency>
 
-        <!-- Lombok (without optional, so it's always available) -->
+        <!-- Lombok (NO optional – ensures it's always on classpath) -->
         <dependency>
             <groupId>org.projectlombok</groupId>
             <artifactId>lombok</artifactId>
+            <version>${lombok.version}</version>
+            <scope>provided</scope>
         </dependency>
 
-        <!-- Excel Export -->
+        <!-- Excel / PDF / Charts (as before) -->
         <dependency>
             <groupId>org.apache.poi</groupId>
             <artifactId>poi</artifactId>
@@ -86,15 +90,11 @@
             <artifactId>poi-ooxml</artifactId>
             <version>${poi.version}</version>
         </dependency>
-
-        <!-- PDF Export -->
         <dependency>
             <groupId>com.lowagie</groupId>
             <artifactId>itext</artifactId>
             <version>${itext.version}</version>
         </dependency>
-
-        <!-- JFreeChart -->
         <dependency>
             <groupId>org.jfree</groupId>
             <artifactId>jfreechart</artifactId>
@@ -106,15 +106,13 @@
             <version>${jcommon.version}</version>
         </dependency>
 
-        <!-- DevTools (runtime) -->
+        <!-- DevTools & Test -->
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-devtools</artifactId>
             <scope>runtime</scope>
             <optional>true</optional>
         </dependency>
-
-        <!-- Test -->
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-test</artifactId>
@@ -134,9 +132,11 @@
 
     <build>
         <plugins>
+            <!-- Compiler plugin with explicit Lombok annotation processor -->
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-compiler-plugin</artifactId>
+                <version>${maven-compiler-plugin.version}</version>
                 <configuration>
                     <source>${java.version}</source>
                     <target>${java.version}</target>
@@ -150,6 +150,8 @@
                     <parameters>true</parameters>
                 </configuration>
             </plugin>
+
+            <!-- Spring Boot plugin (excludes Lombok from the fat JAR) -->
             <plugin>
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-maven-plugin</artifactId>
@@ -165,4 +167,4 @@
         </plugins>
     </build>
 
-</project>
+</project>    
